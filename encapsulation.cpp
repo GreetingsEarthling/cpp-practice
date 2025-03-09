@@ -2,9 +2,11 @@
 
 class Car {
 private:
-    std::string Name;
     std::string Color;
     double Price;
+
+protected:
+    std::string Name;
     bool IsBroken;
 
 public:
@@ -42,6 +44,39 @@ public:
     }
 };
 
+// Inheritance 
+
+class FlyingCar :public Car {
+public:
+    FlyingCar(std::string name, std::string color, double price):Car(name, color, price) {
+
+        
+    }
+
+    void move() {
+        if(IsBroken) {
+            std::cout << Name << " is broken" << std::endl;
+        }
+        else {
+            std::cout << Name << " is flying" << std::endl;
+        }
+    }
+};
+
+class UnderwaterCar :public Car {
+public:
+    UnderwaterCar(std::string name, std::string color, double price):Car(name, color, price) {
+    }
+    void move() {
+        if(IsBroken) {
+            std::cout << Name << " is broken" << std::endl;
+        }
+        else {
+            std::cout << Name << " is diving" << std::endl;
+        }
+    }
+};
+
 int main() {
 
     Car ford("Ford", "Red", 50000);
@@ -53,7 +88,34 @@ int main() {
     ford.repairCar();
     ford.move();
     
+    FlyingCar flyingCar("Sky Fury", "Black", 500000);
+    flyingCar.getInfo();
+    flyingCar.move();
+
+    // Polymorphism
+
+    UnderwaterCar underwaterCar("Sea Storm", "Blue", 600000);
+    underwaterCar.getInfo();
+    underwaterCar.move();
+
+    // Pointers with classes
+
+    Car* car1 = &flyingCar;
+    Car* car2 = &underwaterCar;
+
+    car1->crashCar();
+    car2->crashCar();
+
+    ford.move();
+    flyingCar.move();
+    underwaterCar.move();
+
+    car1->repairCar();
+    car2->repairCar();
+
+    ford.move();
+    flyingCar.move();
+    underwaterCar.move();
+
     
-
-
 }
